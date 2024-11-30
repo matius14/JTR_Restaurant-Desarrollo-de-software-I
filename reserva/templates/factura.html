@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        h2, h3 {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+        
+        .header {
+            text-align: center; 
+            margin-bottom: 20px;
+        }
+        .empresa-info {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .header img {
+            width: 150px;
+            height: auto;
+            margin-top: 10px; 
+        }
+        .header .factura-title {
+            margin-top: 20px;
+            font-size: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        .total {
+            text-align: right;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="empresa-info">
+            <h3>JTR Restaurant</h3>
+        </div>
+        <img src="{{ logo_url }}" alt="Logo de la Empresa">
+        <h1 class="factura-title">Factura</h1>
+    </div>
+
+    <!-- Información de la factura -->
+    <h3>Fecha: {{ venta.fecha }}</h3>
+    <h3>Cliente: {{ cliente.username }}</h3>
+
+    <!-- Tabla de productos -->
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in carrito_items %}
+            <tr>
+                <td>{{ item.nombre_plato }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ item.precio_unitario }}</td>
+                <td>${{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Total de la factura -->
+    <h2 class="total">Total: ${{ venta.valorTotal }}</h2>
+
+    <!-- Pie de página con información adicional -->
+    <div class="footer">
+        <p>Gracias por su compra. Si tiene alguna pregunta, no dude en contactarnos.</p>
+        <p>Este es un documento generado electrónicamente. No requiere firma.</p>
+    </div>
+</body>
+</html>

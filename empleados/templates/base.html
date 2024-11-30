@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados</title>
+</head>
+<body>
+
+    
+    <h2>Inicio</h2>
+
+    <ul>
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'reserva' %}">reservas</a></li>
+        <li><a href="{% url 'registro' %}">registro</a></li>
+        <li><a href="{% url 'login' %}">login</a></li>
+        <li><a href="{% url 'menu' %}">menu</a></li>
+        <li><a href="{% url 'home' %}">home</a></li>
+      
+
+    </ul>
+
+    {% block content %}
+
+    {% endblock %}
+    
+</body>
+</html>

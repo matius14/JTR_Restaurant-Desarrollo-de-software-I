@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Formulario de PQRS</h2>
+    <p>Envíanos tus peticiones, quejas, reclamos o sugerencias. Estaremos encantados de ayudarte.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="celular" class="form-label">Celular</label>
+            <input type="number" class="form-control" id="celular" name="celular" required>
+        </div>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="numero_reserva" class="form-label">Número de Reserva</label>
+            <input type="number" class="form-control" id="numero_reserva" name="numero_reserva">
+        </div>
+        <div class="mb-3">
+            <label for="detalles" class="form-label">Detalles</label>
+            <textarea class="form-control" id="detalles" name="detalles" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+{% endblock %}

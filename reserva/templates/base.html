@@ -1,0 +1,223 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/img/JTR.png" type="image/x-icon">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'reservas.css' %}">
+    
+    <title>JTR Restaurant</title>
+
+    <style>
+        
+        .navbar {
+            background-color: #d56f6c;
+            padding: 10px 20px;
+        }
+
+        .navbar .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .navbar-brand img {
+            height: 50px;  
+            margin-right: 10px;  
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-item {
+            margin-left: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-link i {
+            margin-right: 8px;  
+        }
+
+        .navbar-brand img{
+            width: 50px;
+            height: 50px;
+            border-radius: 40px;
+        }
+
+        
+        .content-wrapper {
+            padding-top: 80px; 
+            padding-bottom: 100px; 
+        }
+
+        .btn-logout {
+            border: none;
+            border-radius: 20px;
+        }
+
+        
+        .footer-bar {
+            background-color: #d56f6c;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .footer-bar .footer-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .footer-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .footer-bar a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 982px) {
+            .navbar{
+
+                width: 100%;
+        
+
+            }
+
+            .navbar-nav a,i{
+                margin: 10px;
+               
+            }
+
+            .navbar-nav{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+            
+            }
+
+            .navbar-brand{
+                width: 50%;
+                margin: 0 auto;
+               
+            }
+
+            @media (max-width: 774px) {
+           
+            .navbar-nav{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+            }
+          
+
+            .navbar-brand{
+                width: 50%;
+                margin: 0 auto;
+               
+            }
+
+        }
+
+            
+            @media (max-width: 542px) {
+           
+           .navbar-nav{
+           display: grid;
+           grid-template-columns: 1fr 1fr 1fr  ;
+       
+       }
+
+       .navbar-brand{
+           width: 50%;
+           margin: 0 auto;
+          
+       }
+
+       .navbar-brand img {
+           mix-blend-mode: multiply;      
+        }
+
+
+        
+    }
+}          
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Logo de la empresa y nombre -->
+            <a class="navbar-brand" href="{% url 'menu' %}">
+                <img src="{% static 'img/JTR-cop.png' %}" alt="Logo JTR Restaurant">
+                <span class="restaurant-name">JTR Restaurant</span>     
+            </a>
+            <!-- Menú de navegación -->
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'menu' %}">
+                    <i class="fa-solid fa-utensils"></i> 
+                </a>
+                <a class="nav-link" href="{% url 'carrito' %}">
+                    <i class="fas fa-shopping-cart"></i> 
+                </a>
+                <a class="nav-link" href="{% url 'venta' %}">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                </a>
+                <a class="nav-link" href="{% url 'reserva' %}">
+                    <i class="fa-solid fa-chair"></i> 
+                </a>
+                <a class="nav-link" href="{% url 'perfil' %}">
+                    <i class="fas fa-user"></i> 
+                </a>
+                <form action="{% url 'logout' %}" method="post" class="nav-link">
+                    {% csrf_token %}
+                    <button class="btn btn-primary btn-logout" type="submit">Cerrar sesión</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+    <footer class="navbar navbar-expand-lg fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-nav mx-auto">
+                <a class="nav-link" href="{% url 'quienes_somos' %}" style="color: white;">¿Quiénes Somos?</a>
+                <a class="nav-link" href="{% url 'pqrs' %}" style="color: white;">PQRS</a>
+                <a class="nav-link text-white" href="{% url 'terminos' %}">Términos y Condiciones</a>
+                <a class="nav-link text-white" href="{% url 'privacidad' %}">Privacidad</a>
+                <a class="nav-link text-white" href="{% url 'ayuda' %}">Ayuda</a>
+                <a class="nav-link text-white" href="{% url 'contactanos' %}">Contactanos</a>
+
+            </div>
+        </div>
+    </footer>    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+</body>
+</html>

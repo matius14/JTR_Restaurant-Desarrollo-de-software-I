@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="row">
+        <!-- Columna para la imagen y la descripción del producto -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <!-- Contenedor para la imagen y la descripción con borde -->
+            <div class="border p-3 rounded shadow-sm">
+                <!-- Imagen del producto -->
+                <div class="text-center mb-3">
+                    <img src="{{ producto.imagen.url }}" 
+                         alt="{{ producto.nombre_plato }}" 
+                         class="img-fluid rounded shadow-sm" style="max-height: 250px; object-fit: contain;">
+                </div>
+                
+                <!-- Descripción del producto debajo de la imagen -->
+                <h2 style="text-align: center;">Descripción</h2>
+                <p class="text-muted text-justify">{{ producto.descripcion }}</p>
+            </div>
+        </div>
+
+        <!-- Columna para la tarjeta de agregar al carrito -->
+        <div class="col-md-6">
+            <div class="card shadow-sm" style="max-width: 300px;">
+                <div class="card-body">
+                    <!-- Nombre del plato -->
+                    <h4 class="card-title text-center">{{ producto.nombre_plato }}</h4>
+                    <!-- Precio del plato -->
+                    <h5 class="text-black text-center mb-3">Precio: <span class="text-black">${{ producto.precio }}</span></h5>
+
+                    <!-- Cantidad y agregar al carrito -->
+                    <form method="POST" action="{% url 'carrito' %}">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="number" name="cantidad" value="1" min="1" class="form-control w-auto" placeholder="Cantidad" style="max-width: 80px;">
+                            <input type="hidden" name="menu_id" value="{{ producto.id }}">
+                            <button class="btn btn-primary ms-3" type="submit">Agregar al Carrito</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos Relacionados -->
+    <div class="mt-5">
+        <h3 class="text-center mb-4">Productos Relacionados</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for related_producto in productos_relacionados %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ related_producto.imagen.url }}" class="card-img-top img-fluid" alt="{{ related_producto.nombre_plato }}" style="max-height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ related_producto.nombre_plato }}</h5>
+                        <p class="card-text text-muted text-center">{{ related_producto.descripcion|truncatechars:50 }}</p>
+                        <h6 class="text-primary text-center">Precio: ${{ related_producto.precio }}</h6>
+                        <div class="d-flex justify-content-center mt-2">
+                            <a href="{% url 'detalle_producto' related_producto.id %}" class="btn btn-outline-primary btn-sm">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No hay productos relacionados disponibles.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+

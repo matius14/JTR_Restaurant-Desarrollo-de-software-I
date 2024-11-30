@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>¡Reserva realizada con éxito!</h2>
+    <p>Gracias por tu reserva. Te esperamos pronto.</p>
+    <a href="{% url 'index' %}" class="btn btn-primary">Volver al inicio</a>
+  </div>
+{% endblock %}

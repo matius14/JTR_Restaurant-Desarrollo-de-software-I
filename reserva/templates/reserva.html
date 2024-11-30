@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+  <!-- Título principal -->
+  <h2 class="text-center mb-4 style="color: black;">Reserva una Mesa</h2 >
+
+  <div class="row align-items-center">  
+    <!-- Columna izquierda con el formulario de reserva -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <h4 class="card-title text-center mb-4">Formulario de Reserva</h4>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="fecha" class="form-label"><strong>Fecha:</strong></label>
+            <input type="date" name="fecha" id="fecha" class="form-control" value="{{ form.fecha.value }}" required>
+          </div>
+          <div class="mb-3">
+            <label for="hora" class="form-label"><strong>Hora:</strong></label>
+            <input type="time" name="hora" id="hora" class="form-control" value="{{ form.hora.value }}" required>
+          </div>
+          <div class="mb-4">
+            <label for="mesa" class="form-label"><strong>Mesa:</strong></label>
+            <select name="mesa" id="mesa" class="form-select">
+              {% for choice in form.mesa.field.choices %}
+                <option value="{{ choice.0 }}" {% if choice.0 == form.mesa.value %} selected {% endif %}>
+                  {{ choice.1 }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Reservar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Columna derecha con la imagen -->
+    <div class="col-md-6 text-center">
+      <img src="{% static 'img/mesa.png' %}" alt="Imagen de reserva" class="img-fluid rounded shadow-lg">
+    </div>
+  </div>
+</div>
+
+<!-- Sección de reservas previas -->
+<div class="container mt-5">
+  <h3 class="text-center text-secondary mb-4">Tus Reservas Anteriores</h3>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for reservaTotal in reservaTotal %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">{{ reservaTotal.cliente }}</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><strong>Fecha:</strong> {{ reservaTotal.fecha }}</p>
+            <p class="card-text"><strong>Hora:</strong> {{ reservaTotal.hora }}</p>
+            <p class="card-text"><strong>Mesa:</strong> {{ reservaTotal.mesa }}</p>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-danger btn-sm">Cancelar Reserva</button>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No tienes reservas previas.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

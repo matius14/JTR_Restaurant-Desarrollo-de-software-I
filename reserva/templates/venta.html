@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-dark">Historial de Ventas</h2>
+
+        <!-- Mensaje de éxito -->
+        {% if mensaje %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>¡Éxito!</strong> {{ mensaje }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
+        <!-- Tabla de ventas -->
+        {% if ventas %}
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered shadow-sm rounded">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Valor Total</th>
+                            <th>Items</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for venta in ventas %}
+                            <tr>
+                                <td>{{ venta.fecha }}</td>
+                                <td>{{ venta.hora }}</td>
+                                <td>${{ venta.valorTotal }}</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        {% for item in venta.carrito_items.all %}
+                                            <li><i class="fas fa-utensils"></i> {{ item.menu.nombre_plato }} - Cantidad: {{ item.cantidad }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <form action="{% url 'generar_factura' venta.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary btn-sm rounded-pill">
+                                            <i class="fas fa-file-invoice"></i> Generar Factura
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No tienes ventas registradas.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Contáctanos</h2>
+    
+    <!-- Alerta de mensaje enviado -->
+    {% if mensaje_enviado %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ¡Gracias! Tu mensaje ha sido enviado con éxito.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <p class="text-center">Por favor, completa los siguientes campos para enviarnos tu mensaje:</p>
+
+    <div class="row align-items-center">
+        <!-- Columna del formulario -->
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="celular" class="form-label">Celular</label>
+                    <input type="number" class="form-control" id="celular" name="celular" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="asunto" class="form-label">Asunto</label>
+                    <textarea class="form-control" id="asunto" name="asunto" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </form>
+        </div>
+
+        <!-- Columna de la imagen -->
+        <div class="col-md-6">
+            <img src="{% static 'img/contactanos.png' %}" alt="Contáctanos" class="img-fluid rounded">
+        </div>
+    </div>
+</div>
+{% endblock %}

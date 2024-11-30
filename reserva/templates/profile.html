@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Mi Perfil</h2>
+
+    <!-- Secciones en formato de tarjetas -->
+    <div class="row mt-4 g-4">
+        <!-- Información Personal -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white text-center" >
+                    <h5 class="card-title mb-0" >Información Personal</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_nombres" class="form-label"><strong>Nombres:</strong></label>
+                            {{ form.nombres }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_apellidos" class="form-label"><strong>Apellidos:</strong></label>
+                            {{ form.apellidos }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_telefono" class="form-label"><strong>Teléfono:</strong></label>
+                            {{ form.telefono }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_direccion" class="form-label"><strong>Dirección:</strong></label>
+                            {{ form.direccion }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_correo" class="form-label"><strong>Correo:</strong></label>
+                            {{ form.correo }}
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Métodos de Pago -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white text-center">
+                    <h5 class="card-title mb-0">Métodos de Pago</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Información sobre los métodos de pago disponibles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacidad y Seguridad -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white text-center">
+                    <h5 class="card-title mb-0">Privacidad y Seguridad</h5>
+                    
+                </div>
+                <div class="card-body">
+                    <p class="text-muted"> Aqui encontraras la Información de privacidad y seguridad que tienes en el sistema</p>
+                    <a href="{% url 'privacidad' %} " class="btn btn-info w-100"> Ir a privacidad </a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Soporte al Cliente -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white text-center">
+                    <h5 class="card-title mb-0">Soporte al Cliente</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p class="text-muted"> Aqui encontraras la Información de soporte al cliente que tienes en el sistema</p>
+                    <a href="{% url 'soporte_cliente' %}" class="btn btn-info w-100">Ir a Soporte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
